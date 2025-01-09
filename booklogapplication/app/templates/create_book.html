@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookMark - 新規作成</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/create_book.css') }}">
+</head>
+
+<body>
+    <div id="create_book" class="container">
+        <h1 class="title-border">本 - 新規作成</h1>
+
+        <form action="{{ url_for('create_book') }}" method="POST" class="modern-form">
+            <label for="title">本のタイトル</label>
+            <input type="text" id="title" name="title" required>
+
+            <label for="author">著者</label>
+            <input type="text" id="author" name="author" required>
+
+            <label for="impression">感想</label>
+            <textarea id="impression" name="impression" required></textarea>
+
+            <label for="favorite_flag">お気に入り</label>
+            <input type="checkbox" id="favorite_flag" name="favorite_flag">
+
+            <label for="reading_time_minutes">読書時間 (分)</label>
+            <input type="number" id="reading_time_minutes" name="reading_time_minutes" step="5" required>
+
+            <label for="reading_status">読了状況</label>
+            <select id="reading_status" name="reading_status" required>
+                <option value="未読">未読</option>
+                <option value="読んでいる途中">読書中</option>
+                <option value="読了">読了</option>
+            </select>
+
+            <button type="submit" class="button">本を保存</button>
+        </form>
+
+        <a href="{{ url_for('index') }}" class="back button">本一覧に戻る</a>
+    </div>
+</body>
+
+</html>
