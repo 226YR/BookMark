@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookMark</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/favorites.css') }}">
+</head>
+
+<body>
+    <div id="favorites" class="container">
+        <h1 class="title-border">お気に入りの本</h1>
+        <a href="{{ url_for('index') }}" class="button">本一覧に戻る</a>
+        {% if not books %}
+        <p>お気に入りの本はまだありません。</p>
+        {% else %}
+        <ul>
+            {% for book in books %}
+            <li class="card">
+                <a href="{{ url_for('view_book', book_id=book.id) }}">{{ book.title }}</a>
+                <p class="small">作成日: {{ book.created_at.strftime('%Y年 %m月 %d日 %H:%M') }}</p>
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+
+    </div>
+</body>
+
+</html>
