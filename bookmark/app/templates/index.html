@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookMark</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+</head>
+
+<body>
+    <div id="index" class="container">
+        <h1>BookMark</h1>
+        <p class="sub-title">いつでも見返せる本の感想アプリ</p>
+        <div class="action-container">
+            <a href="{{ url_for('create_book') }}" class="button">
+                <i class="fa-solid fa-book"></i> 新しい本を追加する
+            </a>
+            <a href="{{ url_for('show_favorites') }}" class="button" id="favorites">
+                <i class="fa-solid fa-heart"></i> お気に入りの本
+            </a>
+            <form action="{{ url_for('show_search_results') }}" method="GET" class="search-form">
+                <input type="text" name="query" placeholder="タイトルで検索" class="search-box">
+                <button type="submit" class="search-button">
+                    <i class="fa-solid fa-search"></i>
+                </button>
+            </form>
+        </div>
+        <div class="books">
+            <h2 class="title-border">本一覧</h2>
+
+            {% if not books %}
+            <p>まだ本がありません。</p>
+            {% endif %}
+
+            <ul>
+                {% for book in books %}
+                <li class="card">
+                    <a href="{{ url_for('view_book', book_id=book.id) }}">{{ book.title }}</a>
+                    <p class="small">作成日: {{ book.created_at.strftime('%Y年 %m月 %d日 %H:%M') }}</p>
+                    {% if book.favorite_flag %}
+                    <i class="fa-solid fa-heart "></i>
+                    {% endif %}
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</body>
+
+</html>
